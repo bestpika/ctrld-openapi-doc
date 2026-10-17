@@ -1,11 +1,13 @@
 # Control D API — OpenAPI 3.0.1
-# Consolidated from official endpoint definitions on 2026-10-05.
+# Consolidated from official endpoint definitions; last verified on 2026-10-17.
 openapi: 3.0.1
 info:
   title: Control D API
   version: 1.0.1
   description: |-
-    依 Control D 官方 API Reference 各頁內嵌的 OpenAPI 定義合併整理，擷取日期：2026-10-05。
+    依 Control D 官方 API Reference 各頁內嵌的 OpenAPI 定義合併整理，擷取日期：2026-10-17。
+
+    已於 2026-10-17 與 2026-10-05 的來源快照逐項比對：51 個操作均無新增、移除或定義內容變更；Restrictions 的導覽分類與頁面更新時間有異動。
 
     info.version 保留官方文件的 1.0.1；Control D API 本身沒有 URL 版本號，官方提醒 API 可能變更。
 
@@ -5031,7 +5033,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-x-source-retrieved-at: '2026-10-05'
+x-source-retrieved-at: '2026-10-17'
 x-normalization-notes:
   - 合併官方各端點 OpenAPI JSON；保留其 schema、媒體類型與範例，並補上唯一 operationId、來源連結與回應說明。
   - GET /profiles/{profile_id}/rules/{folder_id} 與 DELETE /profiles/{profile_id}/rules/{hostname} 的 URL 模板相同。為避免重複
@@ -5041,3 +5043,25 @@ x-normalization-notes:
   - '四處官方陣列 schema 未提供 items，補上 items: {}，未推測其元素型別。'
   - 依官方 Profiles List 的組織說明補上可選的 X-Force-Org-Id 標頭；依 Response Conventions 補上 default 錯誤回應。
   - 本檔經離線結構檢查，未使用 Token 呼叫實際 API。
+x-documentation-check:
+  checked_at: '2026-10-17'
+  compared_with: '2026-10-05'
+  checked_operations: 51
+  checked_paths: 37
+  added_operations: 0
+  removed_operations: 0
+  changed_operation_definitions: 0
+  changed_operation_descriptions: 0
+  checked_general_pages:
+  - get-started
+  - authentication
+  - response-conventions
+  - mobile-config
+  documentation_navigation_change: Restrictions 的五個操作由獨立的 Control D Public API 分類整合至主要 Profiles 分類。
+  pages_with_changed_metadata:
+  - get_profiles-restrictions
+  - put_profiles-profile-id-restrictions-name
+  - get_profiles-profile-id-restrictions
+  - delete_profiles-profile-id-restrictions
+  - delete_profiles-profile-id-restrictions-name
+  validation: 離線檢查 YAML 解析、完整操作覆蓋、內部參照、唯一 operationId、路徑模板及必要參數；未呼叫實際 API。
