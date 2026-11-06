@@ -21,7 +21,7 @@ Swagger UI 或其他程式
 
 ## 建置與執行
 
-開發需要 Go 1.25 以上與 PowerShell；執行已編譯的 Windows 執行檔則不需要安裝 Go。首次建置需要網路下載 Go 模組。
+開發需要 Go 1.25 以上與 PowerShell 7；執行已編譯的 Windows 執行檔則不需要安裝 Go。首次建置需要網路下載 Go 模組。
 
 ```powershell
 .\build.ps1
@@ -84,10 +84,13 @@ Token 僅隨請求轉送，不寫入執行檔、檔案或日誌；Swagger 不啟
 gofmt -w main.go main_test.go
 go vet ./...
 go test ./...
+.\build_test.ps1
 .\build.ps1
 ```
 
 測試使用 `httptest` 模擬上游，涵蓋所有規格路由、表單 POST／PUT／DELETE、URL 編碼、查詢參數、標頭、狀態碼、回應本文、錯誤處理及內嵌 UI。不會使用真實 Token 或對正式環境自動執行寫入測試，因此不代表已驗證 Control D 實際帳號權限與服務行為。
+
+`build_test.ps1` 不需額外測試套件，以暫存目錄與模擬編譯器驗證 12 項版本案例，不修改專案的 `VERSION`。實際執行檔另已在只有執行檔、沒有 YAML 或 UI 資源的目錄驗證啟動，確認 UI、規格與靜態資源回傳 200，未知 API 回傳 404，不支援的方法回傳 405，並僅監聽本機位址。
 
 ## 相關專案
 
