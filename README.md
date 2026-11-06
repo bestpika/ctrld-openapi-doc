@@ -25,20 +25,21 @@ Swagger UI 或其他程式
 
 ```powershell
 .\build.ps1
-.\ctrld-openapi-doc.exe
+.\dist\ctrld-openapi-doc.exe
 ```
 
-也可直接使用 Go：
+預設輸出至專案根目錄下的 `dist/`，建置腳本會自動建立目錄；此目錄不納入 Git 版本控制。也可直接使用 Go：
 
 ```powershell
-go build -trimpath -o ctrld-openapi-doc.exe .
+go build -trimpath -o ./dist/ctrld-openapi-doc.exe .
 ```
 
-預設只監聽 `127.0.0.1:8080`，不開放區域網路。可指定其他連接埠，或查詢工具版本：
+預設只監聽 `127.0.0.1:8080`，不開放區域網路。可使用 `-p` 或 `-port` 指定其他連接埠，或查詢工具版本：
 
 ```powershell
-.\ctrld-openapi-doc.exe -port 8081
-.\ctrld-openapi-doc.exe -version
+.\dist\ctrld-openapi-doc.exe -p 8081
+.\dist\ctrld-openapi-doc.exe -port 8081
+.\dist\ctrld-openapi-doc.exe -version
 ```
 
 | 路徑 | 用途 |
@@ -90,7 +91,9 @@ go test ./...
 
 測試使用 `httptest` 模擬上游，涵蓋所有規格路由、表單 POST／PUT／DELETE、URL 編碼、查詢參數、標頭、狀態碼、回應本文、錯誤處理及內嵌 UI。不會使用真實 Token 或對正式環境自動執行寫入測試，因此不代表已驗證 Control D 實際帳號權限與服務行為。
 
-`build_test.ps1` 不需額外測試套件，以暫存目錄與模擬編譯器驗證 12 項版本案例，不修改專案的 `VERSION`。實際執行檔另已在只有執行檔、沒有 YAML 或 UI 資源的目錄驗證啟動，確認 UI、規格與靜態資源回傳 200，未知 API 回傳 404，不支援的方法回傳 405，並僅監聽本機位址。
+`build_test.ps1` 不需額外測試套件，以暫存目錄與模擬編譯器驗證 14 項版本與建置案例，包含自動建立 `dist/` 與保留自訂輸出位置，不修改專案的 `VERSION`。`-p` 與 `-port` 均已以實際執行檔驗證可指定連接埠，且僅監聽本機位址。
+
+實際執行檔另已在只有執行檔、沒有 YAML 或 UI 資源的目錄驗證啟動，確認 UI、規格與靜態資源回傳 200，未知 API 回傳 404，不支援的方法回傳 405。
 
 ## 相關專案
 
