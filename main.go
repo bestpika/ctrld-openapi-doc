@@ -26,6 +26,7 @@ var version string
 
 func main() {
 	port := flag.Int("port", 8080, "本機連接埠，僅監聽 127.0.0.1")
+	flag.IntVar(port, "p", 8080, "本機連接埠，與 -port 相同")
 	showVersion := flag.Bool("version", false, "顯示工具版號後結束")
 	flag.Parse()
 	if *showVersion {

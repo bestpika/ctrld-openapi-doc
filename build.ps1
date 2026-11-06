@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
     [switch]$BumpVersion,
-    [string]$Output = 'ctrld-openapi-doc.exe'
+    [string]$Output = 'dist/ctrld-openapi-doc.exe'
 )
 
 $ErrorActionPreference = 'Stop'
@@ -28,6 +28,9 @@ if ($BumpVersion) {
 
 Push-Location $PSScriptRoot
 try {
+    if (-not $PSBoundParameters.ContainsKey('Output')) {
+        $null = New-Item -ItemType Directory -Path 'dist' -Force
+    }
     & go build -trimpath -o $Output .
     if ($LASTEXITCODE -ne 0) {
         throw "Go 建置失敗，結束碼：$LASTEXITCODE"
